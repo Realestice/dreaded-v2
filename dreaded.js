@@ -79,10 +79,10 @@ var budy = typeof m.text == "string" ? m.text : "";
 const DevDreaded = dev.split(",");
     const Owner = DevDreaded.map((v) => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(m.sender)
    
-                        const groupMetadata = m.isGroup ? await client.groupMetadata(m.chat).catch((e) => {}) : "";
-    const groupName = m.isGroup ? groupMetadata.subject : "";
-    const participants = m.isGroup ? await groupMetadata.participants : ""; 
-     const groupAdmin = m.isGroup ? await getGroupAdmins(participants) : ""; 
+                                            const groupMetadata = m.isGroup ? await client.groupMetadata(m.chat).catch((e) => {}) : "";
+const groupName = m.isGroup && groupMetadata ? await groupMetadata.subject : "";
+    const participants = m.isGroup && groupMetadata ? await groupMetadata.participants : ""; 
+     const groupAdmin = m.isGroup ? await getGroupAdmins(participants) : "";  
      const isBotAdmin = m.isGroup ? groupAdmin.includes(botNumber) : false; 
      const isAdmin = m.isGroup ? groupAdmin.includes(m.sender) : false;
 
@@ -103,8 +103,8 @@ if (await blocked_users(client, m, cmd)) {
             return;
         }
 await status_saver(client, m, Owner, prefix)
-await eval2(client, m, Owner, budy)
-await eval(client, m, Owner, budy)
+await eval2(client, m, Owner, budy, fetchJson)
+await eval(client, m, Owner, budy, fetchJson)
 await antilink(client, m, isBotAdmin, isAdmin, Owner, body);
 await antiviewonce(client, m, antionce);
 await gcPresence(client, m, gcpresence);

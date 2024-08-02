@@ -9,7 +9,7 @@ const Genius = require("genius-lyrics");  const Client = new Genius.Client("jKTb
  if (!text) return m.reply("Provide a song name!"); 
  const searches = await Client.songs.search(text); 
  const firstSong = searches[0]; 
- 
+
  const lyrics = await firstSong.lyrics(); 
  await client.sendMessage(m.chat, { text: lyrics}, { quoted: m }); 
  } catch (error) { 
